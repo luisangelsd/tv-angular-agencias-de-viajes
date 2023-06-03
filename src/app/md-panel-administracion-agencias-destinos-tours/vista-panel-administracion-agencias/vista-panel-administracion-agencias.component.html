@@ -1,0 +1,91 @@
+<br>
+<section *ngIf="mensajePersonalizadoGlobalSuccess" class="alert alert-success">
+  <samp>{{mensajePersonalizadoGlobalSuccess}}</samp>
+</section>
+
+<section *ngIf="mensajePersonalizadoGlobalError" class="alert alert-danger">
+  <samp>{{mensajePersonalizadoGlobalError}}</samp>
+</section>
+
+<section>
+  <br>
+  <hr>
+  <h2>Agencias:</h2>
+
+  <table class="table" *ngIf="listEntityAgencia!=null"> 
+      <thead>
+        <tr>
+          <td scope="col"><b>📌 Id:</b></td>
+          <td scope="col"><b>🏢 Nombre:</b></td>
+          <td scope="col"><b>📍 Dirección:</b></td>
+          <td scope="col"><b>📍 Url Foto:</b></td>
+          <td scope="col"><b>📆 Fecha de registro:</b></td>
+          <td scope="col"></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <tr *ngFor="let entity of listEntityAgencia">
+            <td>
+              {{entity.idAgencia}}
+            </td>
+            <td>
+              {{entity.nombreAgencia}}
+            </td>
+            <td>
+              {{entity.direccion}} 
+            </td>
+            <td>
+              <img src="{{entity.urlFoto}}" width="250" height="150">
+            </td>
+            <td>
+              {{entity.fechaRegistro}}
+            </td>
+          <td>
+              <a><button  type="button" class="btn btn-primary" (click)="cargarVentanaEditarAgencia(entity)">Editar </button></a>
+              <a><button type="button" class="btn btn-danger" (click)="eliminarAgenciaById(entity)">Eliminar</button></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+
+    <a><button  type="button" class="btn btn-success" (click)="cargarVentanaGuardarAgencia()">Añadir Agencia</button></a>  
+
+</section>
+
+
+
+<section *ngIf="activarBtnGuardarEditarAgencia==true" id="seccion2-guardarEditarAgencia">
+  <br><br>
+  <h2>{{ tituloSeccionAnadorEditarAgencia }}</h2>
+  <samp>{{mensajePersonalizadoFormulario}}</samp><br>
+  <span><b>Id Agencia: </b>{{entityAgencia.idAgencia}}</span> &nbsp; &nbsp; <span><b>Fecha Creación: </b>{{entityAgencia.fechaRegistro}}</span><br><br>
+  <form  (ngSubmit)="guardarAgencia()" [formGroup]="formGrupFormGuardarEditar">  
+    <span>Nombre Agencia: (Máx 250 carácteres)</span><br>
+    <input type="text"   formControlName="form_nombreAgencia"         [(ngModel)]="entityAgencia.nombreAgencia" class="campos_form_guardar_editar"><br><br>
+    <span>Dirección Agencia: (Máx 500 carácteres)</span><br>
+    <input type="text"   formControlName="form_direccionAgencia"      [(ngModel)]="entityAgencia.direccion" class="campos_form_guardar_editar"><br><br>
+    <span>Url Foto Agencia: (Máx 500 carácteres)</span><br>
+    <input type="text"   formControlName="from_urlFotoAgencia"        [(ngModel)]="entityAgencia.urlFoto" class="campos_form_guardar_editar"><br><br>
+    
+    <input type="hidden"     formControlName="form_idAgencia"        [(ngModel)]="entityAgencia.idAgencia" class="campos_form_guardar_editar" >
+    <input type="hidden" formControlName="form_fechaCreacionAgencia"    [(ngModel)]="entityAgencia.fechaRegistro" class="campos_form_guardar_editar"><br>
+    <input type="submit" class="btn btn-success"  value="{{tituloBtnGuardarEditarAgencia}}"> <button class="btn btn-danger" (click)="ocultarSeccionGuardarEditarAgencia()">Cancelar</button>
+  
+  </form>
+  
+</section>
+
+<br>  <br>  <br>
+<section>
+  <h2>Recursos:</h2>
+  <p>Aquí abajo podrás encontrar un listado de URLS de fotografías que puedes añadir a tus registros</p>
+  <ul>
+    <li>https://dev.sandovalguicho.com/traveling-mexico/img/img1.webp</li>
+    <li>https://dev.sandovalguicho.com/traveling-mexico/img/img2.webp</li>
+    <li>https://dev.sandovalguicho.com/traveling-mexico/img/img3.webp</li>
+    <li>https://dev.sandovalguicho.com/traveling-mexico/img/img4.webp</li>
+    <li>https://dev.sandovalguicho.com/traveling-mexico/img/img5.webp</li>
+  </ul>
+</section>
+
